@@ -1,0 +1,35 @@
+name: PR Deployment Notifier
+
+on:
+  pull_request:
+    types: [opened] # Execute only when the PR is first created
+
+jobs:
+  notify-setup:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write # Permission to post comments on PRs
+
+    steps:
+      - name: Comment PR Setup Guide
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            👋 **Hi there! Thank you for your contribution.**
+            
+            ---
+            ### 🇰🇷 빌드 미리보기 가이드 (Korean)
+            이 PR의 빌드 결과를 확인하시려면 본인의 Fork 레포지토리에서 아래 설정을 완료해 주세요:
+            1. 본인 레포지토리의 **Settings** > **Pages**로 이동합니다.
+            2. **Build and deployment** > **Branch**를 `gh-pages`로 선택하고 `/(root)`를 저장(Save)합니다.
+            3. 잠시 후 상단에 생성되는 URL을 통해 변경 사항을 확인할 수 있습니다.
+            
+            ### 🇺🇸 Build Preview Guide (English)
+            To check the build preview of this PR, please complete the following setup in your Fork repository:
+            1. Go to your repository's **Settings** > **Pages**.
+            2. Under **Build and deployment**, select the `gh-pages` **Branch** and `/(root)` folder, then click **Save**.
+            3. You will be able to check the changes through the URL generated at the top after a few moments.
+            
+            ---
+            *Note: If you have already configured this, please ignore this message.*
+          comment_tag: deployment-guide # Unique tag to prevent duplicate comments
